@@ -11,9 +11,9 @@ import re
 import os
 import argparse
 
+
 class FileReader:
     def __init__(self, file_path):
-        # print(file_path)
         self.file_path = file_path
 
     def read(self):
@@ -22,6 +22,7 @@ class FileReader:
                 return f.read().strip()
         except FileNotFoundError:
             print('Error: the file was not found.')
+
 
 class FileWriter:
     def __init__(self, file_path):
@@ -34,6 +35,7 @@ class FileWriter:
                 f.write(data)
         except OSError:
             print('Error: there was a problem writing to the file.')
+
 
 class Duplicheck:
 
@@ -59,7 +61,6 @@ class Duplicheck:
         return current_row[n]
 
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Compare two files.')
     parser.add_argument('input_files', help='the list of input files')
@@ -69,7 +70,6 @@ if __name__ == '__main__':
     try:
         with open(args.input_files, 'r') as input_files:
             input_files = list(map(lambda s: s.strip().split(), input_files.readlines()))
-            # print(input_files)
 
     except FileNotFoundError:
         print('Error: the file was not found.')
@@ -78,8 +78,18 @@ if __name__ == '__main__':
         for i in range(len(input_files)):
             reader1 = FileReader(input_files[i][0])
             file1 = reader1.read()
+            # tree1 = ast.parse(file1)
+            # file1 = ast.dump(tree1)
+
             reader2 = FileReader(input_files[i][1])
             file2 = reader2.read()
+            # tree2 = ast.parse(file2)
+            # file2 = ast.dump(tree2)
+
+            file1 = re.sub(r'#.*', '', file1)
+            file1 = re.sub(r'\s', '', file1)
+            file2 = re.sub(r'#.*', '', file2)
+            file2 = re.sub(r'\s', '', file2)
 
             compare = Duplicheck(file1, file2)
             ratio = 1 - compare.levenstein(compare.file1, compare.file2) / max(len(file1), len(file2))
