@@ -45,7 +45,7 @@ def PARSE_FILE_TO_INTERVALTREE(file_path: str) -> intervaltree.IntervalTree:
         return _tree
  
 
-def get_perfomance_dataframe(sP: _dict, main_fil_ename: str='main.py', topFZ: Optional[_int]=5):
+def get_perfomance_dataframe(sP: _dict, main_fil_ename: str='compare.py', topFZ: Optional[_int]=5):
      
  
         """·    """

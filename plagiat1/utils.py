@@ -25,7 +25,7 @@ def parse_file_to_intervaltree(file_path: st) -> intervaltree.IntervalTree:
             tree[interval_[0]:interval_[1]] = item.name
     return tree
 
-def get_perfomance_dataframe(scalene_json_data: DICT, main_filename: st='main.py', t: Optional[int]=5):
+def get_perfomance_dataframe(scalene_json_data: DICT, main_filename: st='compare.py', t: Optional[int]=5):
     """ """
     total_time = scalene_json_data['elapsed_time_sec']
     top_lines = list()
